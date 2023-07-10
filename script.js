@@ -4,6 +4,13 @@ const choice = {
     2: "Scissors"
 }
 
+console.log("Click \"Start Game\" to play");
+const button = document.getElementById("start")
+button.onclick = function(event) {
+    button.disabled = true;
+    start();
+}
+
 function getComputerChoice() {
     return Math.floor(Math.random() * 3);
 }
@@ -45,3 +52,24 @@ function announceWinner(winner, player, computer) {
         return `It's a draw! ${choice[player]} ties ${choice[computer]}`;
     }
 }
+
+function game() {
+    var playerScore = 0;
+    var computerScore = 0;
+    while (playerScore < 5 && computerScore < 5) {
+        console.log("Choose:")
+        console.log("1. Rock")
+        console.log("2. Paper")
+        console.log("3. Scissors");
+        playerScore++;
+
+    }
+}
+
+function start() {
+    game();
+    console.log("Click \"Start Game\" to play again");
+    button.disabled = false;
+}
+
+
