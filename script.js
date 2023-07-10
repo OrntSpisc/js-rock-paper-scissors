@@ -1,7 +1,7 @@
 const choice = {
-    0: "Rock",
-    1: "Paper",
-    2: "Scissors"
+    0: "rock",
+    1: "paper",
+    2: "scissors"
 }
 
 console.log("Click \"Start Game\" to play");
@@ -54,20 +54,59 @@ function announceWinner(winner, player, computer) {
 }
 
 function game() {
-    var playerScore = 0;
-    var computerScore = 0;
-    while (playerScore < 5 && computerScore < 5) {
-        console.log("Choose:")
-        console.log("1. Rock")
-        console.log("2. Paper")
-        console.log("3. Scissors");
-        playerScore++;
-
+    var playerChoice = prompt("Choose: \n1. Rock\n2. Paper\n3. Scissors");
+    if (playerChoice === '') {
+        console.log("Invalid: Empty choice")
+        return;
     }
+    if (playerChoice === null) {
+        return "Exit";
+    }
+    playerChoice = playerChoice.toLowerCase()
+
+    if (playerChoice == "1" || playerChoice == "2" || playerChoice == "3") {
+        playerChoice = (parseInt(playerChoice) - 1).toString()
+    } else if (Object.values(choice).includes(playerChoice)) {
+        playerChoice = Object.keys(choice).find(key => choice[key] === playerChoice);
+    } else {
+        console.log("Invalid value: \"" + playerChoice + "\"");
+    }
+
+    const computerChoice = getComputerChoice()
+    const winner = calculateWinner(playerChoice, computerChoice)
+    console.log(announceWinner(winner, playerChoice, computerChoice));
+    return winner;
+
 }
 
 function start() {
-    game();
+    var playerScore = 0;
+    var computerScore = 0;
+    while (playerScore < 5 && computerScore < 5) {
+        console.log("Player: " + playerScore);
+        console.log("Computer: " + computerScore);
+        switch (game()) {
+            case "Player":
+                playerScore++;
+                break;
+            case "Computer":
+                computerScore++;
+                break;
+            case "Exit":
+                computerScore = 6;
+                break;
+            default:
+                break;
+        }
+    }
+    if (playerScore == 5) {
+        console.log("Congratulations! You won the game!");
+    } else if (computerScore == 5) {
+        console.log("You lost the game! Try again!");
+    } else if (computerScore == 6) {
+        console.log("Game Cancelled");
+    }
+
     console.log("Click \"Start Game\" to play again");
     button.disabled = false;
 }
