@@ -70,6 +70,7 @@ function game() {
         playerChoice = Object.keys(choice).find(key => choice[key] === playerChoice);
     } else {
         console.log("Invalid value: \"" + playerChoice + "\"");
+        return;
     }
 
     const computerChoice = getComputerChoice()
