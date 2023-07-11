@@ -54,7 +54,7 @@ function announceWinner(winner, player, computer) {
 }
 
 function game() {
-    var playerChoice = prompt("Choose: \n1. Rock\n2. Paper\n3. Scissors");
+    let playerChoice = prompt("Choose: \n1. Rock\n2. Paper\n3. Scissors");
     if (playerChoice === '') {
         console.log("Invalid: Empty choice")
         return;
@@ -81,8 +81,8 @@ function game() {
 }
 
 function start() {
-    var playerScore = 0;
-    var computerScore = 0;
+    let playerScore = 0;
+    let computerScore = 0;
     while (playerScore < 5 && computerScore < 5) {
         console.log("Player: " + playerScore);
         console.log("Computer: " + computerScore);
