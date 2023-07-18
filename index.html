@@ -3,39 +3,21 @@
 <head>
     <meta charset="UTF-8">
     <title>Console Rock Paper Scissors</title>
-    <style>
-        body {
-            text-align: center;
-            font-size: 36px;
-            height: 80vh;
-        }
-
-        h1 {
-            font-family: monospace;
-        }
-
-        button {
-            background-color: #ffffff;
-            border: 2px solid #2c2c2c;
-            border-radius: 8px;
-            font-size: 24px;
-            padding: 18px 24px;
-            cursor: pointer;
-        }
-        button:hover {
-            background-color: #a5a5a5;
-        }
-        button:active {
-            padding: 16px 22px;
-        }
-        button:disabled {
-            border-color: #a5a5a5;
-        }
-    </style>
+    <script type="text/javascript" src="script.js" defer></script>
+    <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-    <h1>Go to Console!</h1>
-    <button id="start">Start Game!</button>
-    <script type="text/javascript" src="script.js"></script>
+    <header>
+        Rock Paper Scissors
+    </header>
+
+    <main>
+        <div class="buttons">
+            <button class="btn" id="rockBtn">Rock</button>
+            <button class="btn" id="paperBtn">Paper</button>
+            <button class="btn" id="scissorsBtn">Scissors</button>
+            
+        </div>
+    </main>
 </body>
 </html>

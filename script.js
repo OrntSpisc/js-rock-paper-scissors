@@ -1,3 +1,13 @@
+const rockBtn = document.getElementById('rockBtn');
+const paperBtn = document.getElementById('paperBtn');
+const scissorsBtn = document.getElementById('scissorsBtn');
+
+rockBtn.addEventListener('click', handleClick('rock'));
+paperBtn.addEventListener('click', handleClick('paper'));
+scissorsBtn.addEventListener('click', handleClick('rock'));
+
+
+
 const choice = {
     0: "rock",
     1: "paper",
@@ -80,36 +90,5 @@ function game() {
 
 }
 
-function start() {
-    let playerScore = 0;
-    let computerScore = 0;
-    while (playerScore < 5 && computerScore < 5) {
-        console.log("Player: " + playerScore);
-        console.log("Computer: " + computerScore);
-        switch (game()) {
-            case "Player":
-                playerScore++;
-                break;
-            case "Computer":
-                computerScore++;
-                break;
-            case "Exit":
-                computerScore = 6;
-                break;
-            default:
-                break;
-        }
-    }
-    if (playerScore == 5) {
-        console.log("Congratulations! You won the game!");
-    } else if (computerScore == 5) {
-        console.log("You lost the game! Try again!");
-    } else if (computerScore == 6) {
-        console.log("Game Cancelled");
-    }
-
-    console.log("Click \"Start Game\" to play again");
-    button.disabled = false;
-}
 
 
