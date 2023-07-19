@@ -1,93 +1,122 @@
 const rockBtn = document.getElementById('rockBtn');
 const paperBtn = document.getElementById('paperBtn');
 const scissorsBtn = document.getElementById('scissorsBtn');
+const roundDetails = document.getElementById('roundDetails');
+const announcement = document.getElementById('announce');
+const playerScorePara = document.getElementById('playerScore');
+const computerScorePara = document.getElementById('computerScore');
+const buttons = document.getElementsByClassName('btnChoice');
+const modal = document.getElementById('modal');
+const playAgainBtn = document.getElementById('playAgain');
 
-rockBtn.addEventListener('click', handleClick('rock'));
-paperBtn.addEventListener('click', handleClick('paper'));
-scissorsBtn.addEventListener('click', handleClick('rock'));
+let isFinished = false;
+let playerScore = 0;
+let computerScore = 0;
+
+rockBtn.addEventListener('click', () => handleClick('ROCK'));
+paperBtn.addEventListener('click', () => handleClick('PAPER'));
+scissorsBtn.addEventListener('click', () => handleClick('SCISSORS'));
 
 
 
-const choice = {
-    0: "rock",
-    1: "paper",
-    2: "scissors"
+function handleClick(clicked) {
+
+    if (isFinished) {
+        openGameEndDialog();
+        return;
+    }
+
+    const playerChoice = clicked;
+    const computerChoice = getComputerChoice();
+
+    const winner = playRound(playerChoice, computerChoice);
+    console.log(winner)
+    switch (winner) {
+        case 'PLAYER':
+            announcement.textContent = 'You won!';
+            roundDetails.textContent = `${capitalizeText(playerChoice)} beats ${capitalizeText(computerChoice)}.`;
+            playerScore++;
+            updateScore();
+            break;
+        case 'COMPUTER':
+            announcement.textContent = 'You lost!';
+            roundDetails.textContent = `${capitalizeText(computerChoice)} beats ${capitalizeText(playerChoice)}.`;
+            computerScore++;
+            updateScore();
+            break;
+        case 'DRAW':
+            announcement.textContent = "It's a tie!";
+            roundDetails.textContent = `${capitalizeText(playerChoice)} ties ${capitalizeText(computerChoice)}.`;
+            break;
+    }
+    if (playerScore >= 5 || computerScore >= 5) {
+        buttons.disabled = true;
+        isFinished = true;
+        openGameEndDialog();
+    }
 }
 
-console.log("Click \"Start Game\" to play");
-const button = document.getElementById("start")
-button.onclick = function(event) {
-    button.disabled = true;
-    start();
+function restartGame() {
+    playerScore = 0;
+    computerScore = 0;
+    isFinished = 0;
+    announcement.textContent = 'Attack with?';
+    roundDetails.textContent = '';
+    updateScore();
+    buttons.disabled = false;
+    closeGameEndDialog();
+}
+
+function openGameEndDialog() {
+    modal.style.display = 'block';
+    playAgainBtn.addEventListener('click', () => restartGame());
+}
+
+function closeGameEndDialog() {
+
+    modal.style.display = 'none';
+}
+
+function updateScore() {
+    playerScorePara.textContent = `Player: ${playerScore}`;
+    computerScorePara.textContent = `Computer: ${computerScore}`;
 }
 
 function getComputerChoice() {
-    return Math.floor(Math.random() * 3);
+    const array = ['ROCK', 'PAPER', 'SCISSORS'];
+    return array[Math.floor(Math.random() * 3)];
 }
 
-function calculateWinner(player, computer) {
-    if (player == 0) {
-        if (computer == 0) {
-            return "Draw";
-        } else if (computer == 1) {
-            return "Computer";
-        } else if (computer == 2) {
-            return "Player";
-        }
-    } else if(player == 1) {
-        if (computer == 0) {
-            return "Player";
-        } else if (computer == 1) {
-            return "Draw";
-        } else if (computer == 2) {
-            return "Computer";
-        }
-    } else if (player == 2) {
-        if (computer == 0) {
-            return "Computer";
-        } else if (computer == 1) {
-            return "Player";
-        } else if (computer == 2) {
-            return "Draw";
-        }
-    }
+function capitalizeText(string) {
+    return string.charAt(0).toUpperCase() + string.slice(1).toLowerCase();
 }
 
-function announceWinner(winner, player, computer) {
-    if (winner == "Player") {
-        return `You win! ${choice[player]} beats ${choice[computer]}`;
-    } else if (winner == "Computer") {
-        return `You lose! ${choice[computer]} beats ${choice[player]}`;
-    } else {
-        return `It's a draw! ${choice[player]} ties ${choice[computer]}`;
+function playRound(playerChoice, computerChoice) {
+    if (playerChoice == 'ROCK') {
+        if (computerChoice == 'ROCK') {
+            return "DRAW";
+        } else if (computerChoice == 'PAPER') {
+            return "COMPUTER";
+        } else if (computerChoice == 'SCISSORS') {
+            return "PLAYER";
+        }
+    } else if(playerChoice == 'PAPER') {
+        if (computerChoice == 'ROCK') {
+            return "PLAYER";
+        } else if (computerChoice == 'PAPER') {
+            return "DRAW";
+        } else if (computerChoice == 'SCISSORS') {
+            return "COMPUTER";
+        }
+    } else if (playerChoice == 'SCISSORS') {
+        if (computerChoice == 'ROCK') {
+            return "COMPUTER";
+        } else if (computerChoice == 'PAPER') {
+            return "PLAYER";
+        } else if (computerChoice == 'SCISSORS') {
+            return "DRAW";
+        }
     }
-}
-
-function game() {
-    let playerChoice = prompt("Choose: \n1. Rock\n2. Paper\n3. Scissors");
-    if (playerChoice === '') {
-        console.log("Invalid: Empty choice")
-        return;
-    }
-    if (playerChoice === null) {
-        return "Exit";
-    }
-    playerChoice = playerChoice.toLowerCase()
-
-    if (playerChoice == "1" || playerChoice == "2" || playerChoice == "3") {
-        playerChoice = (parseInt(playerChoice) - 1).toString()
-    } else if (Object.values(choice).includes(playerChoice)) {
-        playerChoice = Object.keys(choice).find(key => choice[key] === playerChoice);
-    } else {
-        console.log("Invalid value: \"" + playerChoice + "\"");
-        return;
-    }
-
-    const computerChoice = getComputerChoice()
-    const winner = calculateWinner(playerChoice, computerChoice)
-    console.log(announceWinner(winner, playerChoice, computerChoice));
-    return winner;
-
 }
 
 

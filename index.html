@@ -3,6 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <title>Console Rock Paper Scissors</title>
+    <script defer src="https://use.fontawesome.com/releases/v5.15.4/js/all.js" integrity="sha384-rOA1PnstxnOBLzCLMcre8ybwbTmemjzdNlILg8O7z1lUkLXozs4DHonlDtnE7fpc" crossorigin="anonymous"></script>
     <script type="text/javascript" src="script.js" defer></script>
     <link rel="stylesheet" href="styles.css">
 </head>
@@ -13,11 +14,28 @@
 
     <main>
         <div class="buttons">
-            <button class="btn" id="rockBtn">Rock</button>
-            <button class="btn" id="paperBtn">Paper</button>
-            <button class="btn" id="scissorsBtn">Scissors</button>
-            
+            <button class="btn btnChoice" id="rockBtn"><i class="fas fa-hand-rock" style="color: #f1f0f0;"></i></i></button>
+            <button class="btn btnChoice" id="paperBtn"><i class="fas fa-hand-paper" style="color: #f1f0f0;"></i></button>
+            <button class="btn btnChoice" id="scissorsBtn"><i class="fas fa-hand-scissors fa-rotate-90" style="color: #f1f0f0;"></i></button>
+        </div>
+        <div class="texts">
+            <div class="announce" id="announce">
+                Attack with?
+            </div>
+            <div class="details" id="roundDetails">
+                <p></p>
+            </div>
+            <div class="scores">
+                <p id="playerScore">Player: 0</p>
+                <p id="computerScore">Computer: 0</p>
+            </div>
         </div>
     </main>
+    <div class="modal" id="modal">
+        <div class="modal-content">
+            You won!
+            <button class="playagainBtn" id="playAgain">Play Again</button>
+        </div>
+    </div>
 </body>
 </html>
