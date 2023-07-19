@@ -7,6 +7,7 @@ const playerScorePara = document.getElementById('playerScore');
 const computerScorePara = document.getElementById('computerScore');
 const buttons = document.getElementsByClassName('btnChoice');
 const modal = document.getElementById('modal');
+const modalAnnouncement = document.getElementById('modal-announcement');
 const playAgainBtn = document.getElementById('playAgain');
 
 let isFinished = false;
@@ -69,6 +70,11 @@ function restartGame() {
 
 function openGameEndDialog() {
     modal.style.display = 'block';
+    if (playerScore > computerScore) {
+        modalAnnouncement.textContent = 'You won!';
+    } else {
+        modalAnnouncement.textContent = 'You lost!';
+    }
     playAgainBtn.addEventListener('click', () => restartGame());
 }
 
